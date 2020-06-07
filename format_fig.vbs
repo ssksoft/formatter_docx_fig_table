@@ -1,4 +1,5 @@
 Const wdAlignParagraphCenter = 1
+Const wdCollapseEnd = 0
 
 ' カレントフォルダの取得
 Dim shell_obj
@@ -19,18 +20,30 @@ Sub main(current_dir)
     Set target_obj = word_obj.Documents.Open(target_filename)
     
     ' Call format_fig(word_obj,target_obj)
-    Call format_caption(word_obj, "図*:")
+    Call format_caption(word_obj, target_obj,"図*:")
 
 End Sub
 
 
 ' word_obj.Quit
 
-Sub format_caption(word_obj,target_str)
-        With word_obj.Selection.Find                        
-            .text = "図1:"
+Sub format_caption(word_obj,target_obj,target_str)
+    target_obj.Bookmarks("\EndOfDoc").Select
+    word_obj.Selection.Collapse(wdCollapseEnd)
+        With word_obj.Selection.Find                     
+            .text = "図*:"
+            .Forward = False                 '検索方向上向き
+            .Wrap = wdFindAsk                '文書の先頭/末尾まで検索したら聞く
+            .Format = False              '書式にこだわらずに検索する
+            .MatchCase = False           '大文字小文字区別せずに検索する  
+            .MatchWholeWord = False      '(英)完全一致でなくとも検索する
+            .MatchByte = False           '全角半角区別せずに検索する  
+            .MatchAllWordForms = False   '(英)異なる活用形は検索しない
+            .MatchSoundsLike = False     '(英)あいまいに検索しない
+            .MatchFuzzy = False          '(日)あいまいに検索しない
+            .MatchWildcards = True           'ワイルドカードOn
             .Execute
-            word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
+        '     word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
         End With
 End Sub
 

@@ -25,14 +25,13 @@ Sub main(current_dir)
     Set target_obj = word_obj.Documents.Open(target_filename)
     
     Call format_fig(word_obj,target_obj)
-    Call format_caption(word_obj, target_obj,"}*:")
 
 End Sub
 
 Sub format_caption(word_obj,target_obj,target_str)
     word_obj.Selection.HomeKey(wdstory)
         With word_obj.Selection.Find                     
-            .text = "}*:"
+            .text = target_str
             .Forward = True                 'ŒŸõ•ûŒüãŒü‚«
             ' .Wrap = wdFindAsk                '•¶‘‚Ìæ“ª/––”ö‚Ü‚ÅŒŸõ‚µ‚½‚ç•·‚­
             .Format = False              '‘®‚É‚±‚¾‚í‚ç‚¸‚ÉŒŸõ‚·‚é
@@ -46,18 +45,19 @@ Sub format_caption(word_obj,target_obj,target_str)
             Do While .Execute
                 word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
             Loop
-            
-            word_obj.Selection.HomeKey(wdstory)
-
-            .text = "•\*:"
-            Do While .Execute
-                word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
-            Loop
         End With
     word_obj.Selection.HomeKey(wdstory)
 End Sub
 
 Sub format_fig(word_obj,target_obj)
+    For Each iShape In target_obj.InlineShapes
+            iShape.Select
+            word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
+        Next
+    Call format_caption(word_obj, target_obj,"}*:")
+End Sub
+
+Sub format_table(word_obj,target_obj)
     For Each iShape In target_obj.InlineShapes
             iShape.Select
             word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter

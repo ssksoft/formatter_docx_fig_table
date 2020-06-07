@@ -16,6 +16,6 @@ target_filename = current_dir & "\sample.docx"
 Set target_obj = word_obj.Documents.Open(target_filename)
 
 target_obj.Content.ShapeRange.Select
-Selection.ParagraphFormat.Alignment = 1
+word_obj.Selection.ParagraphFormat.Alignment = 1
 
 ' word_obj.Quit

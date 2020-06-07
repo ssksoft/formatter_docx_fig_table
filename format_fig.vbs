@@ -4,6 +4,9 @@
 Const wdAlignParagraphCenter = 1
 Const wdCollapseEnd = 0
 Const wdstory = 6
+Const wdAlignRowCenter = 1
+Const fig_name_common = "図*:"
+Const table_name_common = "表*:"
 
 
 ' カレントフォルダの取得
@@ -22,13 +25,14 @@ Sub main(current_dir)
 
     target_filename = current_dir & "\sample.docx"
 
-    Set target_obj = word_obj.Documents.Open(target_filename)
+    Set doc_obj = word_obj.Documents.Open(target_filename)
     
-    Call format_fig(word_obj,target_obj)
+    Call format_fig(word_obj,doc_obj)
+    Call format_table(word_obj,doc_obj)
 
 End Sub
 
-Sub format_caption(word_obj,target_obj,target_str)
+Sub format_caption(word_obj,doc_obj,target_str)
     word_obj.Selection.HomeKey(wdstory)
         With word_obj.Selection.Find                     
             .text = target_str
@@ -49,17 +53,17 @@ Sub format_caption(word_obj,target_obj,target_str)
     word_obj.Selection.HomeKey(wdstory)
 End Sub
 
-Sub format_fig(word_obj,target_obj)
-    For Each iShape In target_obj.InlineShapes
+Sub format_fig(word_obj,doc_obj)
+    For Each iShape In doc_obj.InlineShapes
             iShape.Select
             word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
         Next
-    Call format_caption(word_obj, target_obj,"図*:")
+    Call format_caption(word_obj, doc_obj,fig_name_common)
 End Sub
 
-Sub format_table(word_obj,target_obj)
-    For Each iShape In target_obj.InlineShapes
-            iShape.Select
-            word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
-        Next
+Sub format_table(word_obj,doc_obj)
+    For Each table in doc_obj.Tables
+        table.Rows.Alignment = wdAlignRowCenter
+    Next
+    Call format_caption(word_obj, doc_obj,table_name_common)
 End Sub

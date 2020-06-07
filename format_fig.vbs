@@ -15,7 +15,9 @@ target_filename = current_dir & "\sample.docx"
 
 Set target_obj = word_obj.Documents.Open(target_filename)
 
-target_obj.Content.ShapeRange.Select
+For Each iShape In target_obj.InlineShapes
+    iShape.Select
+Next
 word_obj.Selection.ParagraphFormat.Alignment = 1
 
 ' word_obj.Quit

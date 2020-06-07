@@ -1,6 +1,10 @@
+' 参考：https://yutako.hateblo.jp/entry/2019/11/24/170711
+
+
 Const wdAlignParagraphCenter = 1
 Const wdCollapseEnd = 0
 Const wdstory = 6
+
 
 ' カレントフォルダの取得
 Dim shell_obj
@@ -42,8 +46,9 @@ Sub format_caption(word_obj,target_obj,target_str)
             .MatchSoundsLike = False     '(英)あいまいに検索しない
             .MatchFuzzy = False          '(日)あいまいに検索しない
             .MatchWildcards = True           'ワイルドカードOn
-            .Execute
-            word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
+            Do While .Execute
+                word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
+            Loop
         End With
     word_obj.Selection.HomeKey(wdstory)
 End Sub

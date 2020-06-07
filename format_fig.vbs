@@ -1,13 +1,13 @@
 Const wdAlignParagraphCenter = 1
 
-' ã‚«ãƒ¬ãƒ³ãƒˆãƒ•ã‚©ãƒ«ãƒ€ã®å–å¾—
+' ƒJƒŒƒ“ƒgƒtƒHƒ‹ƒ_‚Ìæ“¾
 Dim shell_obj
 Dim current_dir
 Set shell_obj = CreateObject( "WScript.Shell" )
 current_dir = shell_obj.CurrentDirectory
 Set shell_obj = Nothing
 
-' ãƒ¡ã‚¤ãƒ³å‡¦ç†
+' ƒƒCƒ“ˆ—
 main(current_dir)
 
 Sub main(current_dir)
@@ -17,14 +17,22 @@ Sub main(current_dir)
     target_filename = current_dir & "\sample.docx"
 
     Set target_obj = word_obj.Documents.Open(target_filename)
-    Call format_fig(word_obj,target_obj)
+    
+    ' Call format_fig(word_obj,target_obj)
+    Call format_caption(word_obj, "}*:")
 
 End Sub
 
 
 ' word_obj.Quit
 
-
+Sub format_caption(word_obj,target_str)
+        With word_obj.Selection.Find                        
+            .text = "}1:"
+            .Execute
+            word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
+        End With
+End Sub
 
 Sub format_fig(word_obj,target_obj)
     For Each iShape In target_obj.InlineShapes
@@ -34,7 +42,7 @@ Sub format_fig(word_obj,target_obj)
 End Sub
 
 Function get_current_dir(shell_obj)
-    ' ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå–å¾—.
+    ' ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠæ“¾.
     
 End Function
 

@@ -17,7 +17,8 @@ Set target_obj = word_obj.Documents.Open(target_filename)
 
 For Each iShape In target_obj.InlineShapes
     iShape.Select
+    word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
 Next
-word_obj.Selection.ParagraphFormat.Alignment = 1
+
 
 ' word_obj.Quit

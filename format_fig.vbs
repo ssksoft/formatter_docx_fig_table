@@ -1,5 +1,6 @@
 Const wdAlignParagraphCenter = 1
 Const wdCollapseEnd = 0
+Const wdstory = 6
 
 ' カレントフォルダの取得
 Dim shell_obj
@@ -28,8 +29,7 @@ End Sub
 ' word_obj.Quit
 
 Sub format_caption(word_obj,target_obj,target_str)
-    ' target_obj.Bookmarks("\EndOfDoc").Select
-    ' word_obj.Selection.Collapse(wdCollapseEnd)
+    word_obj.Selection.HomeKey(wdstory)
         With word_obj.Selection.Find                     
             .text = "図*:"
             .Forward = True                 '検索方向上向き
@@ -43,8 +43,9 @@ Sub format_caption(word_obj,target_obj,target_str)
             .MatchFuzzy = False          '(日)あいまいに検索しない
             .MatchWildcards = True           'ワイルドカードOn
             .Execute
-        '     word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
+            word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
         End With
+    word_obj.Selection.HomeKey(wdstory)
 End Sub
 
 Sub format_fig(word_obj,target_obj)

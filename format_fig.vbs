@@ -24,7 +24,7 @@ Sub main(current_dir)
 
     Set target_obj = word_obj.Documents.Open(target_filename)
     
-    ' Call format_fig(word_obj,target_obj)
+    Call format_fig(word_obj,target_obj)
     Call format_caption(word_obj, target_obj,"図*:")
 
 End Sub
@@ -59,10 +59,3 @@ Sub format_fig(word_obj,target_obj)
             word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
         Next
 End Sub
-
-Function get_current_dir(shell_obj)
-    ' カレントディレクトリ取得.
-    
-End Function
-
-

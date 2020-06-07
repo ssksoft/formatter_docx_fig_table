@@ -28,12 +28,12 @@ End Sub
 ' word_obj.Quit
 
 Sub format_caption(word_obj,target_obj,target_str)
-    target_obj.Bookmarks("\EndOfDoc").Select
-    word_obj.Selection.Collapse(wdCollapseEnd)
+    ' target_obj.Bookmarks("\EndOfDoc").Select
+    ' word_obj.Selection.Collapse(wdCollapseEnd)
         With word_obj.Selection.Find                     
             .text = "}*:"
-            .Forward = False                 'ŒŸõ•ûŒüãŒü‚«
-            .Wrap = wdFindAsk                '•¶‘‚Ìæ“ª/––”ö‚Ü‚ÅŒŸõ‚µ‚½‚ç•·‚­
+            .Forward = True                 'ŒŸõ•ûŒüãŒü‚«
+            ' .Wrap = wdFindAsk                '•¶‘‚Ìæ“ª/––”ö‚Ü‚ÅŒŸõ‚µ‚½‚ç•·‚­
             .Format = False              '‘®‚É‚±‚¾‚í‚ç‚¸‚ÉŒŸõ‚·‚é
             .MatchCase = False           '‘å•¶š¬•¶š‹æ•Ê‚¹‚¸‚ÉŒŸõ‚·‚é  
             .MatchWholeWord = False      '(‰p)Š®‘Sˆê’v‚Å‚È‚­‚Æ‚àŒŸõ‚·‚é

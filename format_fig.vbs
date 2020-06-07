@@ -29,9 +29,6 @@ Sub main(current_dir)
 
 End Sub
 
-
-' word_obj.Quit
-
 Sub format_caption(word_obj,target_obj,target_str)
     word_obj.Selection.HomeKey(wdstory)
         With word_obj.Selection.Find                     
@@ -46,6 +43,13 @@ Sub format_caption(word_obj,target_obj,target_str)
             .MatchSoundsLike = False     '(英)あいまいに検索しない
             .MatchFuzzy = False          '(日)あいまいに検索しない
             .MatchWildcards = True           'ワイルドカードOn
+            Do While .Execute
+                word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
+            Loop
+            
+            word_obj.Selection.HomeKey(wdstory)
+
+            .text = "表*:"
             Do While .Execute
                 word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
             Loop

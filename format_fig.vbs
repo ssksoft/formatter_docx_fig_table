@@ -17,16 +17,21 @@ Sub main(current_dir)
     target_filename = current_dir & "\sample.docx"
 
     Set target_obj = word_obj.Documents.Open(target_filename)
-
-    For Each iShape In target_obj.InlineShapes
-        iShape.Select
-        word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
-    Next
+    Call format_fig(word_obj,target_obj)
 
 End Sub
 
 
 ' word_obj.Quit
+
+
+
+Sub format_fig(word_obj,target_obj)
+    For Each iShape In target_obj.InlineShapes
+            iShape.Select
+            word_obj.Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
+        Next
+End Sub
 
 Function get_current_dir(shell_obj)
     ' カレントディレクトリ取得.
